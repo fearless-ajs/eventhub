@@ -1,0 +1,54 @@
+//- Email template adapted from https://github.com/leemunroe/responsive-html-email-template
+//- Converted from HTML using https://html2pug.now.sh/
+
+doctype html
+html
+  head
+    meta(name='viewport', content='width=device-width')
+    meta(http-equiv='Content-Type', content='text/html; charset=UTF-8')
+    title= subject
+
+    include _style
+  body
+    table.body(role='presentation', border='0', cellpadding='0', cellspacing='0')
+      tbody
+        tr
+          td
+          td.container
+            .content
+              div(style='text-align: center')
+                img(src='https://th.bing.com/th/id/OIP.xZbrlKY0WR3ELSSExbROogHaHJ?w=180&h=180&c=7&r=0&o=5&dpr=1.8&pid=1.7' style='width: 70px; height: 47px')
+              hr
+              div(style='margin-top: 10px')
+              // START CENTERED WHITE CONTAINER
+              table.main(role='presentation')
+
+                // START MAIN AREA
+                tbody
+                  tr
+                    td.wrapper
+                      table(role='presentation', border='0', cellpadding='0', cellspacing='0')
+                        tbody
+                          tr
+                            td
+                              // CONTENT
+                              block content
+
+              // START FOOTER
+              .footer
+                table(role='presentation', border='0', cellpadding='0', cellspacing='0')
+                  tbody
+                    tr
+                      td.content-block
+                        span.apple-link #{payload.appInfo.name} | Made with ♥ by #{payload.appInfo.companyName}
+                        br
+                        a(href=`${payload.appInfo.companyFacebook}`, target='_blank')
+                         img(src='https://cdn3.iconfinder.com/data/icons/free-social-icons/67/facebook_circle_color-512.png' style='width: 27px; height: 27px; margin-right: 5px')
+                        a(href=`${payload.appInfo.companyTwitter}`, target='_blank')
+                         img(src='https://cdn4.iconfinder.com/data/icons/social-media-icons-the-circle-set/48/twitter_circle-512.png' style='width: 27px; height: 27px; margin-right: 5px')
+                        a(href=`${payload.appInfo.companyLinkedIn}`, target='_blank')
+                         img(src='https://upload.wikimedia.org/wikipedia/commons/thumb/f/f8/LinkedIn_icon_circle.svg/1200px-LinkedIn_icon_circle.svg.png' style='width: 27px; height: 27px')
+                        br
+                        |  Don't like these emails? 
+                        a(href='#') Unsubscribe
+          //- td  
