@@ -24,12 +24,12 @@ import { AuthModule } from '@app/rest/auth/auth.module';
       }),
       inject: [ConfigService],
     }),
-    CacheModule.register({
-      isGlobal: true,
-      store: redisStore,
-      host: process.env.REDIS_HOST,
-      port: process.env.REDIS_PORT,
-    }),
+    // CacheModule.register({
+    //   isGlobal: true,
+    //   store: redisStore,
+    //   host: process.env.REDIS_HOST,
+    //   port: process.env.REDIS_PORT,
+    // }),
     MulterModule.register(),
     EventEmitterModule.forRoot(),
     EventsListenerModule,
