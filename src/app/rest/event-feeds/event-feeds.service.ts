@@ -116,7 +116,22 @@ export class EventFeedsService {
     });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} eventFeed`;
+  async remove(id: number, userId: number) {
+    const entityToDelete = await this.repo.findOne({
+      where: { id },
+      // Get the user data
+      relations: ['user'],
+    })
+    
+    const user = await this.userService.findOneById(userId);
+
+    // Check if the entity exists
+    if (!entityToDelete)
+      throw new NotFoundException(`Event with ID ${id} not found or does not belong to the user`);
+
+    if (entityToDelete.user?.id !== user.id)
+      throw new UnauthorizedException(`Event does not belong to the user`);
+    
+    return this.repo.delete(entityToDelete);
   }
 }

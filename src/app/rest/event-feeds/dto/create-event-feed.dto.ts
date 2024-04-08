@@ -1,34 +1,37 @@
-import { CustomValidation } from "@libs/decorators/custom-validation.decorator";
+import { IsDateAfter, IsFutureDate } from "@libs/decorators/date-validator.decorator";
+import { FormatValidationException } from "@libs/decorators/format-validation-exception.decorator";
 import { IsBoolean, IsDateString, IsDefined, IsEnum, IsNotEmpty, IsNumber, IsOptional, IsString, MaxLength, ValidateIf } from "class-validator";
 
 export class CreateEventFeedDto {
     @IsNotEmpty()
     @IsString()
     @MaxLength(255)
-    @CustomValidation()
+    @FormatValidationException()
     title: string;
 
     @IsNotEmpty()
     @IsEnum(['upcoming', 'ongoing', 'past'], {
         message: 'Event category must be either upcoming, ongoing or past'
       })
-    @CustomValidation()
+    @FormatValidationException()
     category: string;
 
     @IsNotEmpty()
     @IsDateString()
-    @CustomValidation()
+    @IsFutureDate()
+    @FormatValidationException()
     startDateTime: Date;
 
     @IsNotEmpty()
     @IsDateString()
-    @CustomValidation()
+    @IsDateAfter('startDateTime')
+    @FormatValidationException()
     endDateTime: Date;
 
     @IsNotEmpty()
     @IsString()
     @MaxLength(4000)
-    @CustomValidation()
+    @FormatValidationException()
     description: string;
 
     @IsNotEmpty()
@@ -38,21 +41,20 @@ export class CreateEventFeedDto {
     type: string;
 
     @IsNotEmpty()
-    @IsOptional()
     @IsNumber()
     @IsDefined()
     @ValidateIf((object) => object.type === 'paid')
-    @CustomValidation()
+    @FormatValidationException()
     price: number;
 
     @IsNotEmpty()
     @IsEnum(['limited', 'unlimited'], {
         message: 'Expected audience must be either limited or unlimited'
     })
-    @CustomValidation()
+    @FormatValidationException()
     expectedAudience: string;
 
-    @IsOptional()
+    @IsNotEmpty()
     @IsNumber()
     @IsDefined()
     @ValidateIf((object) => object.expectedAudience === 'limited')
@@ -60,18 +62,20 @@ export class CreateEventFeedDto {
 
     @IsNotEmpty()
     @IsDateString()
-    @CustomValidation()
+    @IsFutureDate()
+    @FormatValidationException()
     registrationDeadline: Date;
 
     @IsOptional()
     @IsDefined()
     @IsBoolean()
-    @CustomValidation()
+    @FormatValidationException()
     expectsDresscode: boolean;
 
-    @IsOptional()
+    @IsNotEmpty()
     @IsString()
     @MaxLength(255)
     @ValidateIf((object) => object.expectsDresscode)
+    @FormatValidationException()
     dresscode: string;
 }

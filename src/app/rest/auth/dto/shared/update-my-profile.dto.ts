@@ -1,25 +1,25 @@
 import { IsOptional, IsString, MaxLength } from 'class-validator';
-import { CustomValidation } from '@libs/decorators/custom-validation.decorator';
+import { FormatValidationException } from '@libs/decorators/format-validation-exception.decorator';
 
 export class UpdateMyProfileDto {
   @IsOptional()
   @MaxLength(255)
-  @CustomValidation()
+  @FormatValidationException()
   firstname?: string;
 
   @IsOptional()
   @IsString()
   @MaxLength(255)
-  @CustomValidation()
+  @FormatValidationException()
   lastname?: string;
 
   @IsOptional()
   @IsString()
   @MaxLength(2000)
-  @CustomValidation()
+  @FormatValidationException()
   fcmDeviceToken?: string;
 
   @IsOptional()
-  @CustomValidation()
+  @FormatValidationException()
   picture: any;
 }
