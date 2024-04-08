@@ -1,5 +1,6 @@
+import { EventFeed } from '@app/rest/event-feeds/entities/event-feed.entity';
 import { AbstractEntity } from '@libs/database/abstract.entity';
-import { Column, Entity } from 'typeorm';
+import { Column, Entity, OneToMany } from 'typeorm';
 
 @Entity({ name: 'users' })
 export class User extends AbstractEntity<User> {
@@ -48,4 +49,7 @@ export class User extends AbstractEntity<User> {
 
   @Column({ type: 'text', name: 'fcm_device_token', nullable: true })
   fcmDeviceToken?: string;
+
+  @OneToMany(() => EventFeed, (eventFeed) => eventFeed.user, { cascade: true })
+  eventFeeds: EventFeed[];
 }

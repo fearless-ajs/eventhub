@@ -1,14 +1,16 @@
+/* eslint-disable prettier/prettier */
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { DatabaseConfig, AppConfig } from '@config/index';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import * as redisStore from 'cache-manager-redis-store';
-import { CacheModule } from '@nestjs/cache-manager';
+// import * as redisStore from 'cache-manager-redis-store';
+// import { CacheModule } from '@nestjs/cache-manager';
 import { MulterModule } from '@nestjs/platform-express';
 import { EventEmitterModule } from '@nestjs/event-emitter';
 import { EventsListenerModule } from '@libs/listeners/events-listener/events-listener.module';
 import { UsersModule } from '@app/rest/users/users.module';
 import { AuthModule } from '@app/rest/auth/auth.module';
+import { EventFeedsModule } from './app/rest/event-feeds/event-feeds.module';
 
 @Module({
   imports: [
@@ -35,6 +37,7 @@ import { AuthModule } from '@app/rest/auth/auth.module';
     EventsListenerModule,
     UsersModule,
     AuthModule,
+    EventFeedsModule,
   ],
 })
 export class AppModule {}
