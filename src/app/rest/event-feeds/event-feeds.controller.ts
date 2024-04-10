@@ -20,6 +20,12 @@ export class EventFeedsController {
     @CurrentUser() user: TJwtPayload
    ): Promise<IResponseWithData> {
     const response_data = await this.eventFeedsService.create(createEventFeedDto, user.userId);
+
+    delete response_data.user.password;
+    delete response_data.user.emailVerificationToken;
+    delete response_data.user.passwordResetToken;
+    delete response_data.user.refreshToken
+
     return ResponseSerializer.data(response_data);
   }
 
@@ -30,8 +36,7 @@ export class EventFeedsController {
     @Req() req: Request,
   ): Promise<IResponseWithData> {
     const queryBuilder = this.eventFeedsService.findAll(req);
-    const response = await ResponseSerializer.applyHTEAOS(req, queryBuilder);
-    return  response;
+    return await ResponseSerializer.applyHTEAOS(req, queryBuilder);
   }
   
   @Get('all/mine')
@@ -54,6 +59,8 @@ export class EventFeedsController {
   }
 
   @Patch(':id')
+  @HttpCode(HttpStatus.OK)
+  @UseGuards(JwtAuthGuard)
   async update(
     @Param('id') id: number,
     @Body() updateEventFeedDto: UpdateEventFeedDto,

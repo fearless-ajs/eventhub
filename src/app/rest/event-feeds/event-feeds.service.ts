@@ -13,8 +13,6 @@ const eventDataWithHostFields = [
   'user.lastname',
   'user.firstname',
   'user.email',
-  'user.relationship_status',
-  'user.about',
   'user.picture',
   'user.phone',
   'user.deleted',
@@ -31,6 +29,9 @@ export class EventFeedsService {
 
   async create(createEventFeedDto: CreateEventFeedDto, userId: number) {
     const user = await this.userService.findOne(userId);
+    if(!user)
+      throw new NotFoundException(`User with ID ${userId} not found`);
+
     const eventFeed = this.repo.create(createEventFeedDto);
     eventFeed.user = user;
     return this.repo.save(eventFeed);
@@ -40,7 +41,7 @@ export class EventFeedsService {
     const { query } = req;
     const { category  } = query;
 
-    const queryBuilder = this.repo
+    let queryBuilder = this.repo
       .createQueryBuilder('eventFeed')
       .leftJoinAndSelect('eventFeed.user', 'user')
       .select(eventDataWithHostFields);
@@ -132,6 +133,6 @@ export class EventFeedsService {
     if (entityToDelete.user?.id !== user.id)
       throw new UnauthorizedException(`Event does not belong to the user`);
     
-    return this.repo.delete(entityToDelete);
+    return this.repo.remove(entityToDelete);
   }
 }
