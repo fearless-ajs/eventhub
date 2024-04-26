@@ -38,19 +38,41 @@ export class CustomValidationPipe implements PipeTransform<any> {
     return !types.includes(metatype);
   }
 
+  // private formatErrors(errors: any[]): any {
+  //   const formattedErrors: any = {};
+
+  //   errors.forEach((error) => {
+  //     const { property, constraints } = error;
+
+  //     if (formattedErrors[property]) {
+  //       formattedErrors[property].push(...Object.values(constraints));
+  //     } else {
+  //       console.log(constraints);
+  //       formattedErrors[property] = Object.values(constraints);
+  //     }
+  //   });
+
+  //   return formattedErrors;
+  // }
+
   private formatErrors(errors: any[]): any {
     const formattedErrors: any = {};
-
+  
     errors.forEach((error) => {
       const { property, constraints } = error;
-
-      if (formattedErrors[property]) {
-        formattedErrors[property].push(...Object.values(constraints));
+  
+      if (constraints) {
+        if (formattedErrors[property]) {
+          formattedErrors[property].push(...Object.values(constraints));
+        } else {
+          formattedErrors[property] = Object.values(constraints);
+        }
       } else {
-        formattedErrors[property] = Object.values(constraints);
+        // If constraints are not defined, simply set the property as the error message
+        formattedErrors[property] = [`Validation error for ${property}`];
       }
     });
-
+  
     return formattedErrors;
   }
 }

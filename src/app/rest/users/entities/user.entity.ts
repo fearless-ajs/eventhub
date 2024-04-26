@@ -1,4 +1,5 @@
 import { EventFeed } from '@app/rest/event-feeds/entities/event-feed.entity';
+import { UserService } from '@app/rest/user-services/entities/user-service.entity';
 import { AbstractEntity } from '@libs/database/abstract.entity';
 import { Column, Entity, OneToMany } from 'typeorm';
 
@@ -52,4 +53,7 @@ export class User extends AbstractEntity<User> {
 
   @OneToMany(() => EventFeed, (eventFeed) => eventFeed.user, { cascade: true })
   eventFeeds: EventFeed[];
+
+  @OneToMany(() => UserService, (service) => service.user, { cascade: true })
+  services: UserService[];
 }
