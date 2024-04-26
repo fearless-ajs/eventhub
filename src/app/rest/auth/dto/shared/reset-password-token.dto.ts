@@ -4,17 +4,18 @@ import {
   IsString,
   MaxLength,
 } from 'class-validator';
-import { CustomValidation } from '@libs/decorators/custom-validation.decorator';
+import { FormatValidationException } from '@libs/decorators/format-validation-exception.decorator';
 import { Match } from '@app/rest/users/dto/shared/create-user.dto';
 export class ResetPasswordTokenDto {
   @IsNotEmpty()
   @IsNumberString()
+  @FormatValidationException()
   token: number;
 
   @IsNotEmpty()
   @IsString()
   @MaxLength(100)
-  @CustomValidation()
+  @FormatValidationException()
   new_password: string;
 
   @IsNotEmpty()
@@ -23,5 +24,6 @@ export class ResetPasswordTokenDto {
   @Match('new_password', {
     message: 'Password must match',
   })
+  @FormatValidationException()
   password_confirmation: string;
 }

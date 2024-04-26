@@ -10,7 +10,7 @@ import {
   ValidatorConstraint,
   ValidatorConstraintInterface,
 } from 'class-validator';
-import { CustomValidation } from '@libs/decorators/custom-validation.decorator';
+import { FormatValidationException } from '@libs/decorators/format-validation-exception.decorator';
 
 export function Match(property: string, validationOptions?: ValidationOptions) {
   return (object: any, propertyName: string) => {
@@ -38,21 +38,21 @@ export class CreateUserDto {
   @IsString()
   @IsEmail()
   @MaxLength(255)
-  @CustomValidation()
+  @FormatValidationException()
   email: string;
 
   @IsString()
   @MaxLength(255)
-  @CustomValidation()
+  @FormatValidationException()
   firstname: string;
 
   @IsString()
   @MaxLength(255)
-  @CustomValidation()
+  @FormatValidationException()
   lastname: string;
 
   @MaxLength(100)
-  @CustomValidation()
+  @FormatValidationException()
   password: string;
 
   @IsNotEmpty()
@@ -61,6 +61,6 @@ export class CreateUserDto {
   @Match('password', {
     message: 'Password must match',
   })
-  @CustomValidation()
+  @FormatValidationException()
   passwordConfirmation: string;
 }

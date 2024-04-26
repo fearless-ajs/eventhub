@@ -1,0 +1,15 @@
+{
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 5432,
+            "driver": "PostgreSQL",
+            "name": "local@PostgreSQL",
+            "group": "Posgres",
+            "database": "event_hub",
+            "username": "ajs",
+            "password": "passcode1995"
+        }
+    ]
+}

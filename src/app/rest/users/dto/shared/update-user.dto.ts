@@ -2,27 +2,27 @@ import { PartialType } from '@nestjs/mapped-types';
 import { CreateUserDto } from './create-user.dto';
 import { IsArray, IsEnum, IsLatitude, IsLongitude, IsNotEmpty, IsOptional, MaxLength } from 'class-validator';
 import { Transform } from 'class-transformer';
-import { CustomValidation } from '@libs/decorators/custom-validation.decorator';
+import { FormatValidationException } from '@libs/decorators/format-validation-exception.decorator';
 import { IsFile } from 'nestjs-form-data';
 
 export class UpdateUserDto extends PartialType(CreateUserDto) {
   @IsOptional()
   @IsLatitude()
   @Transform(({ value }) => parseFloat(value))
-  @CustomValidation()
+  @FormatValidationException()
   latitude?: number;
 
   @IsOptional()
   @IsLongitude()
   @Transform(({ value }) => parseFloat(value))
-  @CustomValidation()
+  @FormatValidationException()
   longitude?: number;
 
   @IsOptional()
   @IsEnum(['male', 'female'], {
     message: 'gender must be one of the following values: male, female',
   })
-  @CustomValidation()
+  @FormatValidationException()
   gender?: string;
 
   @IsOptional()
@@ -31,6 +31,6 @@ export class UpdateUserDto extends PartialType(CreateUserDto) {
   @IsFile({ each: true, message: 'Each element in user_media must be a file' })
   // @IsMimeType({ each: true, groups: ['jpeg'] })
   @MaxLength(255, { each: true, message: 'Each element in user_media must not exceed 255 characters' })
-  @CustomValidation()
+  @FormatValidationException()
   userMedia?: any;
 }

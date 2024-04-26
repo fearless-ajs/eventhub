@@ -24,7 +24,6 @@ export const uploadFile = async (file: Express.Multer.File): Promise<string> =>
     region: configService.getOrThrow('AWS_S3_REGION'),
   });
 
-
   // create a function that splits a mime type into an array by /
   const fileTypeExt = file.mimetype.split('/')[1];
   const objectKey = `${randomInt(10000, 999999)}_${Date.now()}_profile_picture.${fileTypeExt}`;

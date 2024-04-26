@@ -11,6 +11,9 @@ import { EventsListenerModule } from '@libs/listeners/events-listener/events-lis
 import { UsersModule } from '@app/rest/users/users.module';
 import { AuthModule } from '@app/rest/auth/auth.module';
 import { EventFeedsModule } from './app/rest/event-feeds/event-feeds.module';
+import { UserServicesModule } from './app/rest/user-services/user-services.module';
+import { UserServicePricingPlansModule } from './app/rest/user-service-pricing-plans/user-service-pricing-plans.module';
+import { UserServiceImagesModule } from './app/rest/user-service-images/user-service-images.module';
 
 @Module({
   imports: [
@@ -38,6 +41,9 @@ import { EventFeedsModule } from './app/rest/event-feeds/event-feeds.module';
     UsersModule,
     AuthModule,
     EventFeedsModule,
+    UserServicesModule,
+    UserServicePricingPlansModule,
+    UserServiceImagesModule,
   ],
 })
 export class AppModule {}

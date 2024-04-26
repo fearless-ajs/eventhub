@@ -157,8 +157,8 @@ export class AuthController {
   async verifyPasswordResetPassword(
     @Body() verifyTokenDto: VerifyTokenDto,
   ): Promise<IResponseWithMessage> {
-    const { email, token } = verifyTokenDto;
-    await this.authService.verifyResetPasswordWithTokenAndEmail(email, token);
+    const { token } = verifyTokenDto;
+    await this.authService.verifyResetPasswordToken(token);
     return ResponseSerializer.message('Password reset Token valid.');
   }
 
