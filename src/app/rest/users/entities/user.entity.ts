@@ -1,7 +1,9 @@
 import { EventFeed } from '@app/rest/event-feeds/entities/event-feed.entity';
 import { UserService } from '@app/rest/user-services/entities/user-service.entity';
 import { AbstractEntity } from '@libs/database/abstract.entity';
-import { Column, Entity, OneToMany } from 'typeorm';
+import { Column, Entity, OneToMany, OneToOne, JoinColumn } from 'typeorm';
+import { Wallet } from '@app/rest/wallet/entities/wallet.entity';
+import { Cart } from '@app/rest/carts/entities/cart.entity';
 
 @Entity({ name: 'users' })
 export class User extends AbstractEntity<User> {
@@ -56,4 +58,12 @@ export class User extends AbstractEntity<User> {
 
   @OneToMany(() => UserService, (service) => service.user, { cascade: true })
   services: UserService[];
+
+  @OneToOne(() => Wallet, (wallet) => wallet.user, { cascade: true })
+  @JoinColumn({ name: 'walletId'})
+  wallet: Wallet;
+
+  @OneToOne(() => Cart, (cart) => cart.user, { cascade: true })
+  @JoinColumn({ name: 'cartId'})
+  cart: Cart;
 }

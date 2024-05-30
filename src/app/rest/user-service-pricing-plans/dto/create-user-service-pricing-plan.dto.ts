@@ -1,1 +1,3 @@
-export class CreateUserServicePricingPlanDto {}
+export class CreateUserServicePricingPlanDto {
+
+}
