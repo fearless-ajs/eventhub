@@ -55,7 +55,7 @@ export class UserServicesController {
   @Get()
   @HttpCode(HttpStatus.OK)
   @UseGuards(JwtAuthGuard)
-  async findAll(@Req() req: Request,) {
+  async findAll(@Req() req: Request) {
     const queryBuilder = this.userServicesService.findAll();
     return ResponseSerializer.applyHTEAOS(req, queryBuilder);
   }

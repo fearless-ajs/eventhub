@@ -7,10 +7,10 @@ import { UpdateUserServicePricingPlanDto } from './dto/update-user-service-prici
 export class UserServicePricingPlansController {
   constructor(private readonly userServicePricingPlansService: UserServicePricingPlansService) {}
 
-  @Post()
-  create(@Body() createUserServicePricingPlanDto: CreateUserServicePricingPlanDto) {
-    return this.userServicePricingPlansService.create(createUserServicePricingPlanDto);
-  }
+  // @Post()
+  // create(@Body() createUserServicePricingPlanDto: CreateUserServicePricingPlanDto) {
+  //   return this.userServicePricingPlansService.create(createUserServicePricingPlanDto);
+  // }
 
   @Get()
   findAll() {
@@ -22,10 +22,10 @@ export class UserServicePricingPlansController {
     return this.userServicePricingPlansService.findOne(+id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateUserServicePricingPlanDto: UpdateUserServicePricingPlanDto) {
-    return this.userServicePricingPlansService.update(+id, updateUserServicePricingPlanDto);
-  }
+  // @Patch(':id')
+  // update(@Param('id') id: string, @Body() updateUserServicePricingPlanDto: UpdateUserServicePricingPlanDto) {
+  //   return this.userServicePricingPlansService.update(+id, updateUserServicePricingPlanDto);
+  // }
 
   @Delete(':id')
   remove(@Param('id') id: string) {

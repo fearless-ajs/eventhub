@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import {
   BadRequestException,
   ConflictException,
@@ -102,6 +101,20 @@ export class UsersService {
   async findOne(id: number) {
     return await this.repo
       .createQueryBuilder('user')
+      .leftJoinAndSelect('user.wallet', 'wallet')
+      .leftJoinAndSelect('user.cart', 'cart')
+      .leftJoinAndSelect('cart.items', 'items')
+      .where('user.id = :id', { id: id })
+      .getOne();
+  }
+
+  async findOneDetailed(id: number) {
+    return await this.repo
+      .createQueryBuilder('user')
+      .leftJoinAndSelect('user.wallet', 'wallet')
+      .leftJoinAndSelect('user.cart', 'cart')
+      .leftJoinAndSelect('cart.items', 'items')
+      .leftJoinAndSelect('items.pricingPlan', 'pricingPlan')
       .where('user.id = :id', { id: id })
       .getOne();
   }

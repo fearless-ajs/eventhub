@@ -34,7 +34,6 @@ export class UserServicesService {
       throw new UnprocessableEntityException('Images are required');
     }
 
-
     // Validate price plans
     for (const pricePlan of pricePlans) {
         if (!pricePlan.item || !pricePlan.amount) {
@@ -117,7 +116,7 @@ export class UserServicesService {
     const { name, description, category, pricePlans } = updateUserServiceDto;
 
     // Find current user
-    const user = await this.usersService.findOne(userId);
+    // const user = await this.usersService.findOne(userId);
     
     // Find the user service
     const service = await this.findOne(id);
